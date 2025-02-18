@@ -1,9 +1,14 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, cleanup } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+test('Should render App component', () => {
+  render(<App />)
+  const appElement = screen.getByTestId('app')
+  expect(appElement).toBeInTheDocument();
+});
+
+test('Should render has header component', () => {
+  render(<App />)
+  const appElement = screen.getByTestId('header')
+  expect(appElement).toBeInTheDocument();
 });
