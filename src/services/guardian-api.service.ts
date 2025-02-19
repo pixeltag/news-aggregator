@@ -1,6 +1,5 @@
 import {
   GuardianResponseInterface,
-  NewsApiInterface,
   NewsInterface,
 } from "./types/new.interface";
 

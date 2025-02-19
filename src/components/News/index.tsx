@@ -1,7 +1,7 @@
 import React from "react";
 import { NewsInterface } from "../../services/types/new.interface";
 import DateFormatter from "../DateFormatter";
-import NewThumbnails from "../Icons/NewThumbnails";
+import NewsThumbnails from "../Icons/NewsThumbnails";
 
 interface NewsProps {
     data: NewsInterface[] | undefined;
@@ -20,14 +20,14 @@ export const News: React.FC<NewsProps> = ({ data, error, isLoading }) => {
             {data?.map((news, index) => (
                 <div className="col" key={index}>
                     <div className="card shadow-sm">
-                        {news.urlToImage && <img className="bd-placeholder-img card-img-top" width="100%" height="255" src={news.urlToImage} />}
-                        {!news.urlToImage && <NewThumbnails />}
+                        {news.urlToImage && <img alt={news.title} className="bd-placeholder-img card-img-top" width="100%" height="255" src={news.urlToImage} />}
+                        {!news.urlToImage && <NewsThumbnails />}
 
                         <div className="card-body">
                             <p className="card-text">{news.title}</p>
                             <div className="d-flex justify-content-between align-items-center">
                                 <div className="btn-group">
-                                    <a type="button" href={news.url} target="_blank" className="btn btn-sm btn-outline-secondary">Read More</a>
+                                    <a type="button" href={news.url} rel="noreferrer" target="_blank" className="btn btn-sm btn-outline-secondary">Read More</a>
                                 </div>
                                 <small className="text-body-secondary">
                                     <DateFormatter date={news.publishedAt} formatString="dd/MM/yyyy" />

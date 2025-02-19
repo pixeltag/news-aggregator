@@ -1,6 +1,6 @@
 
 
-export default function NewThumbnails() {
+export default function NewsThumbnails() {
     return (
         <div className="bd-placeholder-img card-img-top text-center d-flex justify-content-center align-items-center bg-light" style={{ width: "100%", height: "255px" }}
         >
