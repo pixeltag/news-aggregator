@@ -2,6 +2,7 @@ import React from "react";
 import { NewsInterface } from "../../services/types/new.interface";
 import DateFormatter from "../DateFormatter";
 import NewsThumbnails from "../Icons/NewsThumbnails";
+import { Loader } from "../Loader/Loader";
 
 interface NewsProps {
     data: NewsInterface[] | undefined;
@@ -12,7 +13,7 @@ interface NewsProps {
 
 export const News: React.FC<NewsProps> = ({ data, error, isLoading }) => {
 
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading) return <Loader />;
     if (error instanceof Error) return <div>Error: {error.message}</div>;
 
     return (
