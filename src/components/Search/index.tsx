@@ -1,5 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
-import { NewsSource } from "../../pages/NewsApi/types";
+import { NewsSource } from "../../pages/NewsPage/types";
 
 interface SearchBarProps {
     onSearch: (query: string) => void;
@@ -9,23 +8,12 @@ interface SearchBarProps {
     onCategory: (query: string) => void;
 }
 
-// Helper function to format dates as YYYY-MM-DD
-const getFormattedDate = (date: Date) => date.toISOString().split("T")[0];
-
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch, onSource, onStartDate, onEndDate, onCategory }) => {
-    const [query, setQuery] = useState('');
-    const [source, setSource] = useState('');
-    const [startDate, setStartDate] = useState(getFormattedDate(new Date()));
-    const [endDate, setEndDate] = useState(getFormattedDate(new Date()));
-    const [category, setCategory] = useState(getFormattedDate(new Date()));
-
     const handleChange = (
         event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-        onFun: (query: string) => void,
-        setValue: Dispatch<SetStateAction<string>>
+        onFun: (query: string) => void
     ) => {
         const value = event.target.value;
-        setValue(value);
         onFun(value); // Raise event to parent
     };
 
@@ -33,47 +21,50 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, onSource, onStartDate, 
         <div className="row">
             <div className="col-12 col-lg-4">
                 <div className="form-group">
-                    <label>Search</label>
+                    <label htmlFor="search">Search</label>
                     <input
+                        id="search"
+                        name="search"
                         type="text"
+                        className="form-control"
                         placeholder="Search..."
-                        value={query}
-                        onChange={(e) => handleChange(e, onSearch, setQuery)}
-                        className="border p-2 rounded-md w-100 mb-5"
+                        onChange={(e) => handleChange(e, onSearch)}
                     />
                 </div>
             </div>
             <div className="col-12 col-lg-2">
                 <div className="form-group">
-                    <label>From Date</label>
+                    <label htmlFor="from">From</label>
                     <input
+                        id="from"
+                        name="from"
                         type="date"
-                        onChange={(e) => handleChange(e, onStartDate, setStartDate)}
-                        className="border p-2 rounded-md w-100 mb-5"
-                        value={startDate}
+                        onChange={(e) => handleChange(e, onStartDate)}
+                        className="form-control"
                     />
                 </div>
             </div>
             <div className="col-12 col-lg-2">
                 <div className="form-group">
-                    <label>To Date</label>
+                    <label htmlFor="to">To</label>
                     <input
+                        id="to"
+                        name="to"
                         type="date"
-                        onChange={(e) => handleChange(e, onEndDate, setEndDate)}
-                        className="border p-2 rounded-md w-100 mb-5"
-                        value={endDate} // FIXED: should be endDate instead of startDate
-                    />
+                        onChange={(e) => handleChange(e, onEndDate)}
+                        className="form-control" />
                 </div>
             </div>
             <div className="col-12 col-lg-2">
                 <div className="form-group">
-                    <label>Category</label>
+                    <label htmlFor="category">Category</label>
                     <select
-                        onChange={(e) => handleChange(e, onCategory, setCategory)}
-                        className="border p-2 rounded-md w-100 mb-5"
-                        value={category}
+                        id="category"
+                        name="category"
+                        onChange={(e) => handleChange(e, onCategory)}
+                        className="form-select"
                     >
-                        <option value="">Select Category</option>
+                        <option value="">- Select Category -</option>
                         <option value="business">Business</option>
                         <option value="entertainment">Entertainment</option>
                         <option value="general">General</option>
@@ -86,13 +77,14 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, onSource, onStartDate, 
             </div>
             <div className="col-12 col-lg-2">
                 <div className="form-group">
-                    <label>Source</label>
+                    <label htmlFor="source">Source</label>
                     <select
-                        onChange={(e) => handleChange(e, onSource, setSource)}
-                        className="border p-2 rounded-md w-100 mb-5"
-                        value={source}
+                        id="source"
+                        name="source"
+                        onChange={(e) => handleChange(e, onSource)}
+                        className="form-select"
                     >
-                        <option value="">Select Source</option>
+                        <option value="">- Select Source -</option>
                         <option value={NewsSource.NewsApi}>NewsAPI</option>
                         <option value={NewsSource.Guardian}>The Guardian</option>
                         <option value={NewsSource.NYTimes}>New York Times</option>

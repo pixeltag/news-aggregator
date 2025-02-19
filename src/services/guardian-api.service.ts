@@ -10,18 +10,20 @@ const API_KEY = process.env.REACT_APP_GUARDIAN_API_KEY;
 export const fetchGuardianApi = async (
   search: string,
   startDate: string,
-  endDate: string
+  endDate: string,
+  category: string
 ): Promise<NewsInterface[]> => {
   const baseUrl = `${BASE_URL}?q=${search}&page-size=20&api-key=${API_KEY}`;
 
-  const dateParams = [
+  const queryParams = [
     startDate ? `from-date=${startDate}` : "",
     endDate ? `to-date=${endDate}` : "",
+    category ? `section=${encodeURIComponent(category)}` : "",
   ]
-    .filter(Boolean)
+    .filter(Boolean) // Remove empty values
     .join("&");
 
-  const url = dateParams ? `${baseUrl}&${dateParams}` : baseUrl;
+  const url = queryParams ? `${baseUrl}&${queryParams}` : baseUrl;
 
   const response = await fetch(url);
   if (!response.ok) {

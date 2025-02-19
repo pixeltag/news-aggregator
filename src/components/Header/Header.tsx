@@ -13,9 +13,7 @@ export default function Header() {
                     </a>
 
                     <nav className="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-                        <Link className="me-3 py-2 link-body-emphasis text-decoration-none" to={'/'}>NewsApi</Link>
-                        <Link className="me-3 py-2 link-body-emphasis text-decoration-none" to={'/OpenNews'}>OpenNews</Link>
-                        <Link className="me-3 py-2 link-body-emphasis text-decoration-none" to={'/NewsCred'}>NewsCred</Link>
+                        <Link className="me-3 py-2 link-body-emphasis text-decoration-none" to={'/'}>News</Link>
                     </nav>
                 </div>
             </div>

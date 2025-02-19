@@ -6,7 +6,8 @@ const API_KEY = process.env.REACT_APP_NYTIMES_API_KEY;
 export const fetchNYTimesApi = async (
   search: string,
   startDate: string,
-  endDate: string
+  endDate: string,
+  category: string
 ): Promise<NewsInterface[]> => {
   const formatNYTDate = (date: string) => date.replace(/-/g, "");
 
@@ -15,6 +16,7 @@ export const fetchNYTimesApi = async (
   const dateParams = [
     startDate ? `begin_date=${formatNYTDate(startDate)}` : "",
     endDate ? `end_date=${formatNYTDate(endDate)}` : "",
+    category ? `fq=news_desk:("${encodeURIComponent(category)}")` : "",
   ]
     .filter(Boolean) // Remove empty strings
     .join("&");

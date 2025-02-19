@@ -9,7 +9,7 @@ import { fetchGuardianApi } from '../../services/guardian-api.service';
 import { NewsSource } from './types';
 import { fetchNYTimesApi } from '../../services/nytimes-api.service';
 
-export default function NewsApi() {
+export default function NewsPage() {
     const [search, setSearch] = useState<string>('')
     const [source, setSource] = useState<string>('')
     const [startDate, setStartDate] = useState<string>('')
@@ -22,11 +22,11 @@ export default function NewsApi() {
         console.log(source)
         switch (source) {
             case NewsSource.Guardian:
-                return (search: string, startDate: string, endDate: string) => fetchGuardianApi(search, startDate, endDate);
+                return (search: string, startDate: string, endDate: string) => fetchGuardianApi(search, startDate, endDate, category);
             case NewsSource.NewsApi:
                 return (search: string) => fetchNewsApi(search, startDate, endDate, category);
             case NewsSource.NYTimes:
-                return (search: string) => fetchNYTimesApi(search, startDate, endDate);
+                return (search: string) => fetchNYTimesApi(search, startDate, endDate, category);
             default:
                 return (search: string) => fetchNewsApi(search, startDate, endDate, category);
         }
@@ -35,7 +35,7 @@ export default function NewsApi() {
     const queryFn = getQueryFn(source, startDate, endDate);
 
     const { data, error, isLoading } = useQuery<NewsInterface[], Error>({
-        queryKey: ['news', search, source, startDate, endDate],
+        queryKey: ['news', search, source, startDate, endDate, category],
         queryFn: () => queryFn(search, startDate, endDate),
         enabled: !!debouncedSearch,
         // You can also provide initialData, onSuccess, onError, etc. here if needed
@@ -46,18 +46,18 @@ export default function NewsApi() {
     console.log(data)
     return (
         <>
-            <h3 className='mb-2 text-sm' data-testid="title">NewsApi</h3>
+            <h3 className='mb-2 text-sm' data-testid="title">Search News</h3>
             <div>
-                <SearchBar
-                    onSearch={(query: string) => setSearch(query)}
-                    onSource={(source: string) => setSource(source)}
-                    onStartDate={(startDate: string) => setStartDate(startDate)}
-                    onEndDate={(startDate: string) => setEndDate(startDate)}
-                    onCategory={(category: string) => setCategory(category)}
-                />
-
+                <div className="p-4 border bg-light my-4 rounded">
+                    <SearchBar
+                        onSearch={(query: string) => setSearch(query)}
+                        onSource={(source: string) => setSource(source)}
+                        onStartDate={(startDate: string) => setStartDate(startDate)}
+                        onEndDate={(startDate: string) => setEndDate(startDate)}
+                        onCategory={(category: string) => setCategory(category)}
+                    />
+                </div>
                 <News data={data} error={error} isLoading={isLoading} />
-
             </div>
         </>
     )
