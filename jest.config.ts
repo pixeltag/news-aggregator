@@ -1,12 +1,10 @@
-import type { Config } from "@jest/types";
-
-const config: Config.InitialOptions = {
-  preset: "ts-jest",
-  testEnvironment: "jsdom",
-  moduleNameMapper: {
-    "^@/(.*)$": "<rootDir>/src/$1", // Adjust this if you're using path aliases
+module.exports = {
+  moduleDirectories: ["node_modules", "src"],
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
+  transform: {
+    "^.+\\.(ts|tsx)$": "ts-jest",
   },
-  setupFilesAfterEnv: ["<rootDir>/src/setupTests.ts"], // Optional: if you have a setup file
+  moduleNameMapper: {
+    "^react-router-dom$": "<rootDir>/node_modules/react-router-dom",
+  },
 };
-
-export default config;

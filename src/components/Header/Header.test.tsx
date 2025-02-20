@@ -6,9 +6,7 @@ import Header from './Header';  // Adjust the path based on your folder structur
 describe('Header Component', () => {
     test('renders Header component with logo, title, and navigation', () => {
         render(
-            <BrowserRouter>
-                <Header />
-            </BrowserRouter>
+            <Header />
         );
 
         expect(screen.getByTestId('header')).toBeInTheDocument();

@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import Logo from '../Icons/Logo'
 
 export default function Header() {
@@ -11,10 +10,6 @@ export default function Header() {
                         <Logo />
                         <span className="fs-4 mx-3">News Aggregator</span>
                     </a>
-
-                    <nav className="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-                        <Link className="me-3 py-2 link-body-emphasis text-decoration-none" to={'/'}>News</Link>
-                    </nav>
                 </div>
             </div>
         </header>
