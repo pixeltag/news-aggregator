@@ -1,3 +1,4 @@
+import React, { useCallback } from "react";
 import { NewsSource } from "../../pages/NewsPage/types";
 
 interface SearchBarProps {
@@ -9,13 +10,16 @@ interface SearchBarProps {
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch, onSource, onStartDate, onEndDate, onCategory }) => {
-    const handleChange = (
-        event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-        onFun: (query: string) => void
-    ) => {
-        const value = event.target.value;
-        onFun(value); // Raise event to parent
-    };
+    const handleInputChange = useCallback(
+        (
+            event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+            callback: (query: string) => void
+        ) => {
+            const value = event.target.value;
+            callback(value);
+        },
+        [] // Empty dependency array to memoize this function
+    );
 
     return (
         <div className="row">
@@ -28,7 +32,8 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, onSource, onStartDate, 
                         type="text"
                         className="form-control"
                         placeholder="Search..."
-                        onChange={(e) => handleChange(e, onSearch)}
+                        onChange={(e) => handleInputChange(e, onSearch)}
+                        aria-label="Search"
                     />
                 </div>
             </div>
@@ -39,8 +44,9 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, onSource, onStartDate, 
                         id="from"
                         name="from"
                         type="date"
-                        onChange={(e) => handleChange(e, onStartDate)}
+                        onChange={(e) => handleInputChange(e, onStartDate)}
                         className="form-control"
+                        aria-label="Start Date"
                     />
                 </div>
             </div>
@@ -51,8 +57,10 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, onSource, onStartDate, 
                         id="to"
                         name="to"
                         type="date"
-                        onChange={(e) => handleChange(e, onEndDate)}
-                        className="form-control" />
+                        onChange={(e) => handleInputChange(e, onEndDate)}
+                        className="form-control"
+                        aria-label="End Date"
+                    />
                 </div>
             </div>
             <div className="col-12 col-lg-2">
@@ -61,8 +69,9 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, onSource, onStartDate, 
                     <select
                         id="category"
                         name="category"
-                        onChange={(e) => handleChange(e, onCategory)}
+                        onChange={(e) => handleInputChange(e, onCategory)}
                         className="form-select"
+                        aria-label="Category"
                     >
                         <option value="">- Select Category -</option>
                         <option value="business">Business</option>
@@ -81,8 +90,9 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, onSource, onStartDate, 
                     <select
                         id="source"
                         name="source"
-                        onChange={(e) => handleChange(e, onSource)}
+                        onChange={(e) => handleInputChange(e, onSource)}
                         className="form-select"
+                        aria-label="Source"
                     >
                         <option value="">- Select Source -</option>
                         <option value={NewsSource.NewsApi}>NewsAPI</option>

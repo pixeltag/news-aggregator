@@ -1,16 +1,18 @@
-import { render, screen, cleanup } from '@testing-library/react';
-import Header from './Header';
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
+import Header from './Header';  // Adjust the path based on your folder structure
 
-test('Should render Header component', () => {
-    render(<Header />)
-    const headerElement = screen.getByTestId('header')
-    const logoElement = screen.getByTestId('logo')
-    expect(headerElement).toBeInTheDocument();
-    expect(logoElement).toBeInTheDocument();
-    expect(headerElement).toHaveTextContent('BuildingLink')
+describe('Header Component', () => {
+    test('renders Header component with logo, title, and navigation', () => {
+        render(
+            <BrowserRouter>
+                <Header />
+            </BrowserRouter>
+        );
+
+        expect(screen.getByTestId('header')).toBeInTheDocument();
+        expect(screen.getByTestId('logo')).toBeInTheDocument();
+        expect(screen.getByText(/news aggregator/i)).toBeInTheDocument();
+    });
 });
-
-test('It renders correctly', () => {
-    const element = render(<Header />)
-    expect(element).toMatchSnapshot();
-})

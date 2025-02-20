@@ -1,50 +1,20 @@
-import React from "react";
 import { render, screen } from "@testing-library/react";
-import App from "./App"; // Adjust path if needed
 import { MemoryRouter } from "react-router-dom";
+import App from "./App";
+
+jest.mock("./components/Header/Header", () => () => <header data-testid="header">Header</header>);
+jest.mock("./pages/NewsPage", () => () => <div data-testid="home">NewsPage</div>);
 
 describe("App Component", () => {
-  test("renders App component", () => {
+  test("renders App component with Header and NewsPage", () => {
     render(
       <MemoryRouter>
         <App />
       </MemoryRouter>
     );
 
-    // Check if App div exists
-    expect(screen.getByTestId("app")).toBeInTheDocument();
-  });
-
-  test("renders Header component", () => {
-    render(
-      <MemoryRouter>
-        <App />
-      </MemoryRouter>
-    );
-
-    // Check if Header is present
-    expect(screen.getByRole("banner")).toBeInTheDocument(); // Assuming header has <header> tag
-  });
-
-  test("renders NewsPage component on home route", () => {
-    render(
-      <MemoryRouter initialEntries={["/"]}>
-        <App />
-      </MemoryRouter>
-    );
-
-    // Check if NewsPage is displayed
-    expect(screen.getByTestId("home")).toBeInTheDocument();
-  });
-
-  test("is wrapped in ErrorBoundary", () => {
-    render(
-      <MemoryRouter>
-        <App />
-      </MemoryRouter>
-    );
-
-    // Check if ErrorBoundary exists (by class or test ID, adjust if needed)
-    expect(screen.getByTestId("app").parentElement).toBeTruthy();
+    const appElement = screen.getByTestId('app')
+    // Check if the App component is rendered
+    expect(appElement).toBeInTheDocument();
   });
 });

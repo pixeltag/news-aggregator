@@ -1,5 +1,5 @@
 import React from 'react';
-import { format } from 'date-fns';
+import { format, isValid } from 'date-fns';
 
 interface DateFormatterProps {
     date: Date | string; // Accept both Date object or date string
@@ -7,13 +7,12 @@ interface DateFormatterProps {
 }
 
 const DateFormatter: React.FC<DateFormatterProps> = ({ date, formatString }) => {
-    // Ensure the date is a Date object
-    const parsedDate = typeof date === 'string' ? new Date(date) : date;
+    const parsedDate = typeof date === "string" ? new Date(date) : date;
+    if (!isValid(parsedDate)) {
+        return <span>Invalid Date</span>;
+    }
 
-    // Format the date using date-fns
-    const formattedDate = format(parsedDate, formatString);
-
-    return <span>{formattedDate}</span>;
+    return <span>{format(parsedDate, formatString)}</span>;
 };
 
 export default DateFormatter;
