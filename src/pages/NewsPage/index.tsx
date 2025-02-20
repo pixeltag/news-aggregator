@@ -16,7 +16,7 @@ export default function NewsPage() {
     const [endDate, setEndDate] = useState<string>('');
     const [category, setCategory] = useState<string>('');
 
-    const debouncedSearch = useDebounce(search, 2000);
+    const debouncedSearch = useDebounce(search, 500);
 
     // Define the query function for fetching news based on source
     const getQueryFn = useCallback(
